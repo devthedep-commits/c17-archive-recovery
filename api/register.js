@@ -98,7 +98,7 @@ module.exports = async function handler(req, res) {
 
   const email = String(req.body?.email || "").trim().toLowerCase();
 
-  if (!email || email.length > 254 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+  if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ ok: false, error: "invalid_email" });
   }
 
@@ -144,7 +144,7 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ ok: false, error: "archive_write_failed" });
     }
 
-    const base = String(ST_MAREN_URL || BASE_URL).replace(/\\/+$/, "");
+    const base = String(ST_MAREN_URL || BASE_URL).replace(/\/+$/, "");
     const accessUrl = ST_MAREN_URL
       ? `${base}/?token=${encodeURIComponent(token)}`
       : `${base}/record.html?token=${encodeURIComponent(token)}`;
